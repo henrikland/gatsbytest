@@ -1,9 +1,24 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, StaticQuery } from "gatsby"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
+
+export const query = graphql`
+{
+  prismic {
+    allActivitys {
+      edges {
+        node {
+          level
+          title
+        }
+      }
+    }
+  }
+}
+`
 
 const IndexPage = () => (
   <Layout>
@@ -15,6 +30,16 @@ const IndexPage = () => (
       <Image />
     </div>
     <Link to="/page-2/">Go to page 2</Link>
+    <StaticQuery
+      query={query}
+      render={(data) => {
+        console.log('render', data);
+
+        if (!data) return null;
+
+        return <h1>{data.prismic.allActivitys.edges[1].node.title[0].text}</h1>
+      }}
+    />
   </Layout>
 )
 
