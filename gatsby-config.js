@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -27,6 +31,21 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+    resolve: 'gatsby-source-prismic-graphql',
+      options: {
+        repositoryName: 'lbb-test', // (REQUIRED, replace with your own)
+        accessToken: process.env.API_KEY, // (optional API access token)
+        // path: '/preview', // (optional preview path. Default: /preview)
+        // previews: true, // (optional, activated Previews. Default: false)
+        // pages: [{ // (optional, builds pages dynamically)
+        //   type: 'Article',         // TypeName from prismic
+        //   match: '/article/:uid',  // Pages will be generated under this pattern
+        //   path: '/article',        // Placeholder page for unpublished documents
+        //   component: require.resolve('./src/templates/article.js'),
+        // }],
+    }
+  }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
